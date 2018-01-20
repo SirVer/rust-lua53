@@ -292,10 +292,21 @@ pub use self::lualib::{
   LUA_UTF8LIBNAME, LUA_BITLIBNAME, LUA_MATHLIBNAME, LUA_DBLIBNAME, LUA_LOADLIBNAME
 };
 
-#[allow(unused_imports, dead_code, non_camel_case_types)]
-mod glue {
-  include!(concat!(env!("OUT_DIR"), "/glue.rs"));
-}
+#[cfg(all(target_arch="x86_64", target_os="macos"))]
+#[path = "glue_darwin_x86_64.rs"] 
+mod glue;
+
+#[cfg(all(target_arch="x86_64", target_os="linux"))]
+#[path = "glue_linux_x86_64.rs"] 
+mod glue;
+
+#[cfg(all(target_arch="arm", target_os="linux"))]
+#[path = "glue_linux_arm_gnu.rs"] 
+mod glue;
+
+#[cfg(all(target_arch="x86", target_os="linux"))]
+#[path = "glue_linux_x86_gnu.rs"] 
+mod glue;
 
 mod luaconf;
 mod lua;

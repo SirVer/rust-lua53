@@ -156,21 +156,21 @@ fn prebuild() -> io::Result<()> {
     }
 
     // Ensure the presence of glue.rs
-    if !build_dir.join("glue.rs").exists() {
-        // Compile and run glue.c
-        let glue = build_dir.join("glue");
-        let host = env::var("HOST").unwrap();
-        try!(gcc::Build::new()
-            .target(&host)
-            .include(&lua_dir).get_compiler().to_command()
-            .arg("-I").arg(&lua_dir)
-            .arg("src/glue/glue.c")
-            .arg("-o").arg(&glue)
-            .execute());
-        try!(Command::new(glue)
-            .arg(build_dir.join("glue.rs"))
-            .execute());
-    }
+    // if !build_dir.join("glue.rs").exists() {
+        // // Compile and run glue.c
+        // let glue = build_dir.join("glue");
+        // let host = env::var("HOST").unwrap();
+        // try!(gcc::Build::new()
+            // .target(&host)
+            // .include(&lua_dir).get_compiler().to_command()
+            // .arg("-I").arg(&lua_dir)
+            // .arg("src/glue/glue.c")
+            // .arg("-o").arg(&glue)
+            // .execute());
+        // try!(Command::new(glue)
+            // .arg(build_dir.join("glue.rs"))
+            // .execute());
+    // }
     Ok(())
 }
 
